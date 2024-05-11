@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bysj.mapper.OrderMapper">
+
+    <select id="getAllOrder" resultType="com.example.bysj.enity.Order"
+            parameterType="com.example.bysj.enity.Order"
+        >
+        select a.* from bysj_order a
+        <where>
+            <if test="order.dcreate != null and order.dcreate !=''">
+                a.dcreate = #{order.dcreate}
+            </if>
+            <if test="order.sconsumerid != null and order.sconsumerid != '' ">
+                and
+                a.consumerid = #{order.consumerid}
+            </if>
+            <if test="order.consumername != null and order.consumername !='' ">
+                and
+                a.consumername = #{order.consumername}
+            </if>
+            <if test="order.ssettle != null and order.ssettle != '' ">
+                and
+                a.isettle = #{order.isettle}
+            </if>
+        </where>
+    </select>
+
+    <select id="readOrderByCid" parameterType="com.example.bysj.enity.Order"
+            resultType="com.example.bysj.enity.Order">
+        select
+        a.*
+        from
+        bysj_order a
+        where
+        a.iconsumerid = #{order.iconsumerid}
+
+    </select>
+
+
+    <select id="readOrderByScode"
+            resultType="com.example.bysj.enity.Order">
+
+        select
+        a.*
+        from
+        bysj_order a
+        where
+        a.scode = #{scode}
+
+
+
+    </select>
+
+    <update id="updateOne" parameterType="com.example.bysj.enity.Order">
+        update bysj_order a set a.isettle = 0,a.ssettle = '已结清' where a.oid = #{order.oid}
+    </update>
+
+    <update id="updateOrder" parameterType="com.example.bysj.enity.Order">
+        update bysj_order a set a.iconsum = #{order.iconsum} where a.oid = #{order.oid}
+    </update>
+</mapper>

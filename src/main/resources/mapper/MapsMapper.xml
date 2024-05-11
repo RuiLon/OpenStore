@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bysj.mapper.MapsMapper">
+    <select id="getList"
+            resultType="com.example.bysj.enity.Maps"
+            >
+        select
+        a.id,
+        a.skey,
+        a.ivalue,
+        a.istate
+        from
+        bysj_maps a
+        where
+        a.istate = #{istate}
+    </select>
+
+    <update id="updateByKey" parameterType="com.example.bysj.enity.Maps"
+            >
+        update
+        bysj_maps a
+        set
+        a.ivalue = #{maps.ivalue}
+        where
+        a.skey = #{maps.skey}
+        and
+        a.istate = #{maps.istate}
+
+
+    </update>
+
+    <select id="readOneByKey" parameterType="com.example.bysj.enity.Maps"
+            resultType="com.example.bysj.enity.Maps">
+        select
+        a.*
+        from
+        bysj_maps
+        where
+        a.skey=#{maps.skey}
+        and
+        a.istate = #{maps.istate}
+
+
+    </select>
+</mapper>

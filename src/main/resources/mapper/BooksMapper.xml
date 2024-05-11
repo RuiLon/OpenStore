@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bysj.mapper.BooksMapper">
+
+    <update id="updateOne" parameterType="com.example.bysj.enity.Books">
+
+        update bysj_books a set
+        <if test="books.bname !=null and books.bname != ''">
+            a.bname = #{books.bname}
+        </if>
+        <if test="books.bprice != null">
+            ,a.bprice = #{books.bprice}
+        </if>
+        <if test="books.bnumber != null">
+            ,a.bnumber = #{books.bnumber}
+        </if>
+        <if test="books.bauther != null and books.bauther != ''">
+            ,a.bauther = #{books.bauther}
+        </if>
+        <if test="books.brostate != null and books.brostate != ''">
+            ,a.brostate = #{books.brostate}
+        </if>
+        where a.bid = #{books.bid}
+    </update>
+
+    <update id="delbooks" parameterType="com.example.bysj.enity.Books">
+        update bysj_books a set a.idel = 1 where a.bid = #{books.bid}
+    </update>
+
+    <update id="delList">
+        update
+        bysj_books a
+        set a.idel =1
+        where
+        a.bid
+        in
+        <foreach collection="delList" index = "index" item="books"
+                 open="(" separator="," close=")">
+            #{books.bid}
+        </foreach>
+    </update>
+
+    <select id="selectOne"
+            resultType="com.example.bysj.enity.Books">
+        select a.* from bysj_books a where a.bid = #{bid}
+    </select>
+</mapper>
