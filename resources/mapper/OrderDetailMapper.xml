@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bysj.mapper.OrderDetailMapper">
+
+
+    <select id="readAllDetailByOdscode" resultType="com.example.bysj.enity.OrderDetail">
+        select
+        a.*
+        from
+        bysj_order_detail a
+        where
+        a.odscode = #{Odscode}
+
+
+
+
+    </select>
+
+    <update id="updateOne" parameterType="com.example.bysj.enity.OrderDetail">
+        update bysj_order_detail a set
+        <if test="orderDetail.itype != null">
+         a.itype = #{orderDetail.itype}
+        </if>
+        <if test="orderDetail.stype != null and orderDetail.stype != '' ">
+            ,a.stype = #{orderDetail.stype}
+        </if>
+        where
+        a.odid = #{orderDetail.odid}
+    </update>
+</mapper>

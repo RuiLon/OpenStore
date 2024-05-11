@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bysj.mapper.ArrangerMapper">
+
+    <select id="logincheck" resultType="com.example.bysj.enity.Arranger">
+        select * from bysj_arranger a where a.name = #{name} and a.password = #{password} and a.idel = 0;
+    </select>
+
+    <select id="readByName" resultType="com.example.bysj.enity.Arranger">
+        select * from bysj_arranger a where a.name = #{name} and a.idel = 0;
+    </select>
+
+    <update id="updateOne" parameterType="com.example.bysj.enity.Arranger">
+        update bysj_arranger a set
+        <if test="arranger.name != null and arranger.name != ''">
+            a.name = #{arranger.name},
+        </if>
+        <if test="arranger.description != null and arranger.description != ''">
+            a.description = #{arranger.description},
+        </if>
+        <if test="arranger.password != null and arranger.password != ''">
+            a.password = #{arranger.password},
+        </if>
+        a.idel = 0
+        where
+        a.id = #{arranger.id}
+    </update>
+
+    <update id="delArranger" parameterType="com.example.bysj.enity.Arranger">
+        update bysj_arranger a set a.idel = 1 where a.id = #{arranger.id}
+    </update>
+
+    <update id="delList">
+        update
+        bysj_arranger a
+        set a.idel =1
+        where
+        a.id
+        in
+        <foreach collection="delList" index = "index" item="arranger"
+                 open="(" separator="," close=")">
+            #{arranger.id}
+        </foreach>
+    </update>
+
+    <select id="getKey" resultType="com.example.bysj.enity.Arranger">
+        select a.* from bysj_arranger a
+    </select>
+
+    <select id="readRoleid" resultType="integer">
+        select a.id from bysj_arranger a where a.stage = #{stage}
+    </select>
+</mapper>

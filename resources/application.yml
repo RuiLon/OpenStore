@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/work?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password: crl
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  global-config:
+    db-config:
+      table-prefix: bysj_
+      id-type: auto
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+files:
+  upload:
+    path: D:/BYSJ/vue/work/vue_bookbar_bysj/src/assets/Image/
